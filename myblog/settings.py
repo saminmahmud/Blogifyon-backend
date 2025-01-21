@@ -64,6 +64,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ['https://blogifyon-backend.onrender.com','https://*.127.0.0.1','http://127.0.0.1',]
 
 AUTH_USER_MODEL = 'user_account.CustomUser'
 

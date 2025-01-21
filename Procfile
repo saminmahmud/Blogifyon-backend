@@ -1,1 +1,1 @@
-web: daphne core.asgi:application -b 0.0.0.0 -p $PORT
+web: daphne myblog.asgi:application -b 0.0.0.0 -p $PORT

@@ -36,4 +36,5 @@ typing_extensions
 tzdata
 urllib3
 waitress
+whitenoise
 zope.interface

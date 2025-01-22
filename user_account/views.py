@@ -59,7 +59,7 @@ def activate(request, uid64, token):
         user.is_active = True
         user.save()
         # return HttpResponseRedirect(reverse('login'))
-        return HttpResponseRedirect('http://localhost:5173/')
+        return HttpResponseRedirect('https://blogifyon.vercel.app/')
         # return HttpResponseRedirect('http://127.0.0.1:5500/login.html')
         # return Response({'message' : "Your account activation done. Now login."}, status=status.HTTP_200_OK)
     else:

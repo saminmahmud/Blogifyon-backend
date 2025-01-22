@@ -5,6 +5,7 @@ Automat
 certifi
 cffi
 channels
+channels_redis
 charset-normalizer
 constantly
 cryptography
@@ -22,11 +23,13 @@ hyperlink
 idna
 incremental
 Markdown
+msgpack
 pyasn1
 pyasn1_modules
 pycparser
 pyOpenSSL
 python-ipware
+redis
 requests
 service-identity
 sqlparse

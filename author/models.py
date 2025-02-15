@@ -11,7 +11,7 @@ from asgiref.sync import async_to_sync
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to="profile_pictures/" ,blank=True, null=True, default='default_profile_picture/default_pic.jpg')
+    profile_picture = models.ImageField(upload_to="author/profile_pictures/" ,blank=True, null=True, default='author/profile_pictures/default_pic.jpg')
     bio = models.TextField(blank=True)
     address = models.CharField(max_length=255, blank=True)
     twitter = models.URLField(blank=True, null=True)

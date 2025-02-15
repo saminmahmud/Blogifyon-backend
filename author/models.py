@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete, m2m_changed 
 from django.dispatch import receiver
+from PIL import Image
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -10,7 +11,7 @@ from asgiref.sync import async_to_sync
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture_url = models.URLField(blank=True, null=True, default='https://res.cloudinary.com/dedwheqpz/image/upload/v1724566164/Blog_Website/Profile_Picture/eilrzwzvrrp9axkpw1u5.jpg')
+    profile_picture = models.ImageField(upload_to="profile_pictures/" ,blank=True, null=True, default='default_profile_picture/default_pic.jpg')
     bio = models.TextField(blank=True)
     address = models.CharField(max_length=255, blank=True)
     twitter = models.URLField(blank=True, null=True)
@@ -28,16 +29,15 @@ class Author(models.Model):
         self.post_count = Post.objects.filter(author=self).count()
         self.save()
 
-    # # image optimization
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     with Image.open(self.profile_picture.path) as img:
-    #         target_size =300
-    #         if img.height > target_size or img.width > target_size:
-    #             output_size = (target_size, target_size)
-    #             img.thumbnail(output_size)
-    #             img.save(self.profile_picture.path)
-
+    # image optimization
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        with Image.open(self.profile_picture.path) as img:
+            target_size =300
+            if img.height > target_size or img.width > target_size:
+                output_size = (target_size, target_size)
+                img.thumbnail(output_size)
+                img.save(self.profile_picture.path)
 
 @receiver(post_save)
 def update_post_count_on_post_save(sender, instance, **kwargs):

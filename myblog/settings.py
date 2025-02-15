@@ -41,14 +41,14 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'daphne',
-    "unfold",
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'rest_framework',
     'rest_framework.authtoken',
     "corsheaders",
@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'category',
     'comment',
     'notification',
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -170,16 +172,35 @@ USE_I18N = True
 USE_TZ = True
 
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : env('CLOUD_NAME'),
+    'API_KEY' : env('API_KEY'),
+    'API_SECRET' : env('API_SECRET')
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-]
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow" 
+CKEDITOR_CONFIGS = {
+    "default": {
+        "filebrowserImageUploadUrl": "/ckeditor/upload/",
+        "toolbar": "full",
+        "removePlugins": "exportpdf",
+        "extraPlugins": "codesnippet",
+    },
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -198,9 +219,3 @@ EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
 # RECAPTCHA
 DATA_SITE_KEY= env("DATA_SITE_KEY")
 RECAPTCHA_SECRET_KEY = env("RECAPTCHA_SECRET_KEY")
-
-
-
-UNFOLD = {
-    "SITE_HEADER": 'Admin Panel',
-}

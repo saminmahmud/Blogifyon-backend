@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from author.models import Author
 from category.models import Category
@@ -71,10 +72,10 @@ def create_like_notification(sender, instance, created, **kwargs):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextUploadingField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='post')
     categories = models.ManyToManyField(Category)
-    post_image_url = models.URLField(blank=True, null=True)
+    post_image_url = models.ImageField(upload_to='title_image/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     views = models.PositiveIntegerField(default=0)

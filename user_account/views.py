@@ -69,8 +69,8 @@ def activate(request, uid64, token):
 
 
 class UserLoginApiView(APIView):
-    authentication_classes = []  # No authentication required
-    permission_classes = []  # No permission required
+    authentication_classes = []  
+    permission_classes = []
     
     def post(self, request):
         serializer = UserLoginSerializer(data = self.request.data)
@@ -87,7 +87,6 @@ class UserLoginApiView(APIView):
                 # print(_)
                 login(request, user)
                 userId = Author.objects.filter(user__id=user.id).first().id
-                # return Response({'token' : token.key, 'user_id' : user.id}, status=status.HTTP_200_OK)
                 return Response({'token' : token.key, 'user_id' : userId}, status=status.HTTP_200_OK)
             else:
                 return Response({'error' : "Invalid Credential"}, status.HTTP_406_NOT_ACCEPTABLE)

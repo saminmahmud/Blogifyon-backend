@@ -36,4 +36,9 @@ class SavedPostSerializer(serializers.ModelSerializer):
 
     def get_post_details(self, obj):
         serializer = PostSerializer(obj.post)
-        return serializer.data
+        post_data = serializer.data
+        
+        if post_data.get('post_image_url'):
+            post_data['post_image_url'] = self.context['request'].build_absolute_uri(post_data['post_image_url'])
+        
+        return post_data

@@ -10,10 +10,10 @@ from django.utils.encoding import force_bytes
 from rest_framework.authtoken.models import Token
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from author.models import Author
 from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserAccountSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-
 from django.contrib.auth import get_user_model, authenticate, login, logout
 User = get_user_model()
 
@@ -86,7 +86,9 @@ class UserLoginApiView(APIView):
                 # print(token)
                 # print(_)
                 login(request, user)
-                return Response({'token' : token.key, 'user_id' : user.id}, status=status.HTTP_200_OK)
+                userId = Author.objects.filter(user__id=user.id).first().id
+                # return Response({'token' : token.key, 'user_id' : user.id}, status=status.HTTP_200_OK)
+                return Response({'token' : token.key, 'user_id' : userId}, status=status.HTTP_200_OK)
             else:
                 return Response({'error' : "Invalid Credential"}, status.HTTP_406_NOT_ACCEPTABLE)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

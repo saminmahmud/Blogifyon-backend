@@ -22,8 +22,6 @@ class AuthorProfileViewSet(viewsets.ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['user__id']
 
-
-
 class AuthorView(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer

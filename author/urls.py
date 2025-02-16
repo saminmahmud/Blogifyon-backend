@@ -3,7 +3,7 @@ from django.urls import path, include
 from . import views
 router = DefaultRouter()
 
-router.register('list', views.AuthorView) 
+router.register('list', views.AuthorView, basename='author') 
 router.register('reviews', views.ReviewView) 
 router.register('profile', views.AuthorProfileViewSet, basename='profile') 
 # router.register('send_email', views.SendEmailToAuthorView, basename='send_email') 
